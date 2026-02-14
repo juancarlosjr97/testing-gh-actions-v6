@@ -8,5 +8,5 @@ jobs:
         with:
           persist-credentials: true
 
-      - id: my-container
+      - name: Running release-it using GitHub Action
         uses: ./
