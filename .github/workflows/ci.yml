@@ -1,0 +1,12 @@
+on: push
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+
+      - id: my-container
+        uses: ./

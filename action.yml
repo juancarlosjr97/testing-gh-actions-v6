@@ -1,0 +1,6 @@
+name: 'Action Name'
+description: 'What this action does'
+
+runs:
+  using: docker
+  image: 'Dockerfile'
