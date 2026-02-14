@@ -1,6 +1,87 @@
-name: 'Action Name'
-description: 'What this action does'
+---
+name: Github Action - Release It Containerized
+description: Github Action to run Release It
+author: Juan Carlos Blanco Delgado
+branding:
+  icon: zap
+  color: red
+inputs:
+  command:
+    default: ""
+    description: Command to execute Release It
+    required: false
+
+  git_email:
+    default: ${{ github.actor }}
+    description: Git email to run Release It
+    required: false
+
+  git_username:
+    default: "${{ github.actor }}@users.noreply.github.com"
+    description: Git username to run Release It
+    required: false
+
+  github_token:
+    default: ${{ github.token }}
+    description: Github Token to run Release It
+    required: false
+
+  gpg_private_key:
+    default: ""
+    description: GPG Private Key
+    required: false
+
+  gpg_private_key_id:
+    default: ""
+    description: GPG Private Key ID
+    required: false
+
+  image_tag:
+    default: "latest"
+    description: Image tag used to pass specific version of the action
+    required: false
+
+  npm_version:
+    default: ""
+    description: NPM version to use. If not specified, the default NPM version from the container is used
+    required: false
+
+  plugins_list:
+    default: ""
+    description: List of Plugins to run with Release It as comma separated
+    required: false
+
+  ssh_passphrase:
+    default: ""
+    description: SSH Passphrase
+    required: false
+
+  ssh_private_key:
+    default: ""
+    description: SSH Private Key
+    required: false
+
+  version:
+    default: "latest"
+    description: Release It version
+    required: false
 
 runs:
   using: docker
-  image: 'Dockerfile'
+  image: Dockerfile
+  args:
+    - release-it
+    - --ci
+    - ${{ inputs.command }}
+  env:
+    GITHUB_TOKEN: ${{ inputs.github_token }}
+    GIT_DIRECTORY: /github/workspace
+    GIT_EMAIL: ${{ inputs.git_email }}
+    GIT_USERNAME: ${{ inputs.git_username }}
+    GPG_PRIVATE_KEY: ${{ inputs.gpg_private_key }}
+    GPG_PRIVATE_KEY_ID: ${{ inputs.gpg_private_key_id }}
+    NPM_VERSION: ${{ inputs.npm_version }}
+    RELEASE_IT_PLUGINS: ${{ inputs.plugins_list }}
+    RELEASE_IT_VERSION: ${{ inputs.version }}
+    SSH_PASSPHRASE: ${{ inputs.ssh_passphrase }}
+    SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}

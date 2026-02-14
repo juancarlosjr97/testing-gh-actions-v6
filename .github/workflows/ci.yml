@@ -10,3 +10,5 @@ jobs:
 
       - name: Running release-it using GitHub Action
         uses: ./
+        with:
+          command: "--dry-run"
