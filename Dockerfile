@@ -43,11 +43,14 @@ RUN apk update && \
     openssh="${OPENSSH_VERSION}" \
     sqlite-libs="${SQLITE_LIBS_VERSION}"
 
+# Create a non-root user (similar to release-it-containerized)
+RUN adduser -D appuser
+
 WORKDIR /app
 
-USER node
+USER appuser
 
-COPY --chown=node release-it-entrypoint.sh /usr/local/bin/release-it-containerized
+COPY --chown=appuser release-it-entrypoint.sh /usr/local/bin/release-it-containerized
 
 ENTRYPOINT ["release-it-containerized"]
 
